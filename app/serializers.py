@@ -1,7 +1,7 @@
 
 from rest_framework import serializers
 
-from .models import Article, Communitie, Course, Developers, Project, User
+from .models import Article, Communitie, Course, Developer, Project, User
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -33,5 +33,5 @@ class ProjectSerializer(serializers.ModelSerializer):
 
 class DevelopersSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Developers
+        model = Developer
         fields = '__all__'

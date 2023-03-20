@@ -5,7 +5,7 @@ from rest_framework import status, viewsets
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from app.models import Article, Communitie, Course, Developers, Project, User
+from app.models import Article, Communitie, Course, Developer, Project, User
 
 from .serializers import (ArticleSerializer, CommunitieSerializer,
                           CourseSerializer, DevelopersSerializer,
@@ -195,7 +195,7 @@ class ArticleDetails(APIView):
 class DeveloperView(APIView):
     
     def get(self, request):
-        developer = Developers.objects.all()
+        developer = Developer.objects.all()
         serializer = DevelopersSerializer(developer, many=True)
         return Response(serializer.data)
     
@@ -211,8 +211,8 @@ class DeveloperDetails(APIView):
     
     def get_object(self, id):
         try:
-            return Developers.objects.get(id=id)
-        except Developers.DoesNotExist:
+            return Developer.objects.get(id=id)
+        except Developer.DoesNotExist:
             return HttpResponse(status= status.HTTP_404_NOT_FOUND)
         
     def get(self, request, id):
