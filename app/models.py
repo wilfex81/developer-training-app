@@ -202,6 +202,7 @@ class Article(models.Model):
     skill = models.CharField(max_length=100)
     course = models.CharField(max_length=100)
     project = models.CharField(max_length=100)
+    article_details = models.TextField()
     
     def __str__(self):
         return self.skill
