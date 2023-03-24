@@ -8,11 +8,15 @@ from app.views import (ArticleDetails, ArticleView, CommunitieDetails,
                        DeveloperView, ProjectDetails, ProjectView, UserDetails,
                        UserView)
 
+
+
+from django.views.decorators.cache import cache_page
+
 urlpatterns = [
     path('user/', UserView.as_view(), name = 'user'),
     path('userdetails/<int:id>/', UserDetails.as_view()),
     
-    path('course/', CourseView.as_view(), name = 'course'),
+    path('course/', cache_page(60 * 15)(CourseView.as_view())),
     path('coursedetails/<int:id>/', CourseDetails.as_view()),
     
     
