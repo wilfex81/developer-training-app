@@ -128,10 +128,16 @@ class Communitie(models.Model):
                                  choices = CHAMPIONS_LIST,
                                  default=0),
     upvotes = models.IntegerField(default=0)
-    
+    downvotes = models.IntegerField(default=0)
 
     def __str__(self):
         return self.title
+
+    def get_no_of_upvotes(self):
+        return self.upvotes.count()
+
+    def get_no_of_downvotes(self):
+        return self.downvotes.count()
     
 
 class Project(models.Model):

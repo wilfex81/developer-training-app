@@ -1,4 +1,5 @@
 from django.http import HttpResponse, JsonResponse
+from django.conf import settings
 
 from django.shortcuts import get_object_or_404, render
 from rest_framework import status, viewsets
@@ -11,8 +12,18 @@ from .serializers import (ArticleSerializer, CommunitieSerializer,
                           CourseSerializer, DevelopersSerializer,
                           ProjectSerializer, UserSerializer)
 
+
+#cache
+from django.views.decorators.cache import cache_page
+from django.utils.decorators import method_decorator
+from django.core.cache.backends.base import DEFAULT_TIMEOUT
+
+CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
+
+
 class UserView(APIView):
 
+    
     def get(self, request):
         '''
         This function fetches user 
@@ -62,7 +73,6 @@ class UserDetails(APIView):
         return Response(status = status.HTTP_204_NO_CONTENT)
 
 class CourseView(APIView):
-    
     def get(self, request):
         course = Course.objects.all()
         serializer = CourseSerializer(course, many=True)
@@ -76,7 +86,7 @@ class CourseView(APIView):
             return Response(serializer.data, status = status.HTTP_201_CREATED)
         return Response(serializer.errors, status= status.HTTP_400_BAD_REQUEST)
     
-    
+
 class CourseDetails(APIView):
     
     def get_objects(self, id):
